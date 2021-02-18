@@ -39,10 +39,13 @@
 	</div>
 </div>
 
-
-
-
-
-
+<?php
+	if (isset($_SESSION['login'])|| $_SESSION['login']=='correto') {
+?>
+	<a href="cidades/index.php">Cidades</a>
+	hiperligacoes com as diferentes tabelas
+<?php
+	}
+?>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
