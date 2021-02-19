@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div style="text-align: center" class="col-md-9">
-				<h2>Cidades</h2>
+				<h2>Projeto</h2>
 			</div>
 			<div class="col-md-3">
 				<?php
@@ -40,10 +40,11 @@
 </div>
 
 <?php
-	if (isset($_SESSION['login'])|| $_SESSION['login']=='correto') {
+	if (isset($_SESSION['login'])&& $_SESSION['login']=='correto') {
 ?>
 	<a href="cidades/index.php">Cidades</a>
-	hiperligacoes com as diferentes tabelas
+	<a href="locaislazer/index.php">Locais</a>
+	hiperligacoes com as diferentes tabelas/edit dos locais na~º funciona, mehlorar o design
 <?php
 	}
 ?>

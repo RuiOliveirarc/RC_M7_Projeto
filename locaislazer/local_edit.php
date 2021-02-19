@@ -11,23 +11,23 @@
 
 			
 	if($_SERVER['REQUEST_METHOD']=='GET'){
-		if(isset($_GET['id_cidade']) && is_numeric($_GET['id_cidade'])){
+		if(isset($_GET['id_local']) && is_numeric($_GET['id_local'])){
 
 			
 
-			$idCidade=$_GET['id_cidade'];
+			$idLocal=$_GET['id_local'];
 			$con=new mysqli("localhost","root","","projetorc");
 			if($con->connect_errno!=0){
 				echo '<h1>Ocorreu um erro no acesso à base de dados.<br>'.$con->connect_error. "</h1>";
 				exit();
 			}
-			$sql="Select * from cidades where id=?";
+			$sql="Select * from locaislazer where id=?";
 			$stm=$con->prepare($sql);
 			if($stm!=false){
-				$stm->bind_param("i",$idCidade);
+				$stm->bind_param("i",$idLocal);
 				$stm->execute();
 				$res=$stm->get_result();
-				$cidade=$res->fetch_assoc();
+				$local=$res->fetch_assoc();
 				$stm->close();
 			}
 ?>
@@ -35,12 +35,14 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Editar cidade</title>
+	<title>Editar local</title>
 </head>
 <body>
-	<h1>Editar cidades</h1>
-	<form action="cidade_update.php?id_cidade=<?php echo $cidade['id'];?>" method="post">
-		<label>Cidade</label><input type="text" name="cidade" required value="<?php echo $cidade['cidade'];?>"><br>
+	<h1>Editar locais</h1>
+	<form action="local_update.php?id_local=<?php echo $local['id'];?>" method="post">
+		<label>Local</label><input type="text" name="local" required value="<?php echo $local['local'];?>"><br>
+		<label>cidade</label><input type="text" name="id_cidade" required value="<?php echo $local['id_cidade'];?>"><br>
+			<label>Numero de ordem</label><input type="text" name="numordem" value="<?php echo $local['numordem'];?>"><br>
 		<input type="submit" name="enviar">
 	</form>
 	<br>

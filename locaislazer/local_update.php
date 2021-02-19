@@ -10,15 +10,29 @@ if ($_SESSION['login']=="correto") {
 
 
 	if($_SERVER['REQUEST_METHOD']=='POST'){
-		$cidade='';
+		$id_cidade='';
+		$local='';
+		$numordem='';
 		
 
-		if(isset($_POST['cidade'])){
+		if(isset($_POST['id_cidade'])){
 
-			$cidade=$_POST['cidade'];
+			$id_cidade=$_POST['id_cidade'];
 		}
 		else{
-			echo '<script>alert("É obrigatorio o preenchimento do cidade.");</script>';
+			echo '<script>alert("É obrigatorio o preenchimento da cidade.");</script>';
+		}
+		if(isset($_POST['local'])){
+
+			$local=$_POST['local'];
+		}
+		else{
+			echo '<script>alert("É obrigatorio o preenchimento do local.");</script>';
+		}
+
+		if(isset($_POST['numordem'])){
+
+			$numordem=$_POST['numordem'];
 		}
 
 		$con=new mysqli("localhost","root","","projetorc");
@@ -29,16 +43,16 @@ if ($_SESSION['login']=="correto") {
 		}
 
 		else{
-			$idCidade=$_GET['id_cidade'];
-			$sql="update cidades set cidade=? where id=?";
+			$idLocal=$_GET['id_local'];
+			$sql="update locaislazer set local=? where id=?";
 			$stm=$con->prepare($sql);
 			if($stm!=false){
 
-				$stm->bind_param('si',$cidade,$idCidade);
+				$stm->bind_param('siii',$local,$idLocal,$id_cidade,$numordem);
 				$stm->execute();
 				$stm->close();
 
-				echo '<script>alert("Cidade editada com sucesso");</script>';
+				echo '<script>alert("Local editado com sucesso");</script>';
 				echo 'Aguarde um momento. A reencaminhar página';
 				header("refresh:2;url=index.php");
 			}
