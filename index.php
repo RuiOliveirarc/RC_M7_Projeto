@@ -3,7 +3,7 @@
 ?>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
-	<div class="container">
+	<div style="background-color: gray" class="container">
 		<div class="row">
 			<div style="text-align: center" class="col-md-9">
 				<h2>Projeto</h2>
@@ -38,13 +38,16 @@
 		</div>
 	</div>
 </div>
-
+<br>
+<br>
 <?php
 	if (isset($_SESSION['login'])&& $_SESSION['login']=='correto') {
 ?>
 	<a href="cidades/index.php">Cidades</a>
+	<br>
 	<a href="locaislazer/index.php">Locais</a>
-	hiperligacoes com as diferentes tabelas/edit dos locais na~º funciona, mehlorar o design
+	<br>
+	edit dos locais não funciona, melhorar o design
 <?php
 	}
 ?>
