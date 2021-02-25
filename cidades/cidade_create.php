@@ -54,7 +54,8 @@
 	<body>
 		<h1>Adicionar cidades</h1>	
 		<form action="cidade_create.php" method="post">
-			<label>cidade</label><input type="text" name="cidade" required><br>
+			<label>cidade</label>
+			<input type="text" name="cidade" required><br>
 			<input type="submit" name="enviar">
 		</form>
 		<br>

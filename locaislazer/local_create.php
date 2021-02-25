@@ -2,14 +2,11 @@
 
 <?php
 	session_start();
-
-			
+	$con=new mysqli("localhost","root","","projetorc");
 	if($_SERVER['REQUEST_METHOD']=='POST'){
-		$id='';
 		$id_cidade='';
 		$local='';
 		$numordem='';
-
 		if(isset($_POST['id_cidade'])){
 
 			$id_cidade=$_POST['id_cidade'];
@@ -29,7 +26,7 @@
 			$numordem=$_POST['numordem'];
 		}
 		
-		$con=new mysqli("localhost","root","","projetorc");
+		
 
 		if ($con->connect_errno!=0) {
 			echo "Ocorreu um erro no acesso à base de dados. <br>" .$con->connect_error;
@@ -37,9 +34,9 @@
 		}
 
 		else{
-
 			$sql="insert into locaislazer (id_cidade,local,numordem)values(?,?,?)";
 			$stm=$con->prepare($sql);
+
 			if($stm!=false){
 
 				$stm->bind_param('isi',$id_cidade,$local,$numordem);
@@ -58,6 +55,18 @@
 		}
 	}
 	else{
+		$sqlcidade="select * from cidades";
+			$stmcidade=$con->prepare($sqlcidade);
+			if($stmcidade!=false){
+				$stmcidade->execute();
+				$cidades=$stmcidade->get_result();
+				$stmcidade->close();
+			}
+			else{
+				echo ($con->error);
+				echo 'Erro Aguarde um momento. A reencaminhar página';
+				header("refresh:2;url=index.php");
+			}
 ?>	
 	<!DOCTYPE html>
 	<html>
@@ -68,11 +77,33 @@
 	<body>
 		<h1>Adicionar Local</h1>	
 		<form action="local_create.php" method="post">
-			<label>cidade</label><input type="text" name="id_cidade" required><br>
-			<label>Local</label><input type="text" name="local" required><br>
-			<label>Numero de ordem</label><input type="text" name="numordem"><br>
+
+			<label>cidade</label>
+			<select name="id_cidade" >
+				<?php
+				while ($resultado=$cidades->fetch_assoc())
+					{
+
+						echo '<option value="'.$resultado['id'].'">'. $resultado['cidade'].'</option>';
+					}
+				?>
+			</select>
+
+			<br>
+
+			<label>Local</label>
+			<input type="text" name="local" required>
+
+			<br>
+
+			<label>Numero de ordem</label>
+			<input type="text" name="numordem">
+
+			<br>
+
 			<input type="submit" name="enviar">
 		</form>
+
 		<br>
 		<a href="index.php">
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">

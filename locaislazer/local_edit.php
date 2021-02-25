@@ -9,13 +9,23 @@
 	}
 	if ($_SESSION['login']=="correto") {
 
+		
 			
 	if($_SERVER['REQUEST_METHOD']=='GET'){
 		if(isset($_GET['id_local']) && is_numeric($_GET['id_local'])){
-
-			
-
 			$idLocal=$_GET['id_local'];
+
+			if(isset($_POST['local'])){
+				$local=$_POST['local'];
+			}
+
+			if(isset($_POST['id_cidade']) && is_numeric($_POST['id_cidade'])){
+				$cidade=$_POST['id_cidade'];
+			}
+
+			if(isset($_POST['numordem']) && is_numeric($_POST['numordem'])){
+				$numordem=$_POST['numordem'];
+			}
 			$con=new mysqli("localhost","root","","projetorc");
 			if($con->connect_errno!=0){
 				echo '<h1>Ocorreu um erro no acesso à base de dados.<br>'.$con->connect_error. "</h1>";

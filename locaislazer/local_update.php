@@ -44,11 +44,11 @@ if ($_SESSION['login']=="correto") {
 
 		else{
 			$idLocal=$_GET['id_local'];
-			$sql="update locaislazer set local=? where id=?";
+			$sql="update locaislazer set local=?,id_cidade=?,numordem=? where id=?";
 			$stm=$con->prepare($sql);
 			if($stm!=false){
 
-				$stm->bind_param('siii',$local,$idLocal,$id_cidade,$numordem);
+				$stm->bind_param('siii',$local,$id_cidade,$numordem,$idLocal);
 				$stm->execute();
 				$stm->close();
 
