@@ -13,7 +13,6 @@ if ($_SESSION['login']=="correto") {
 		$id_cidade='';
 		$local='';
 		$numordem='';
-		
 
 		if(isset($_POST['id_cidade'])){
 

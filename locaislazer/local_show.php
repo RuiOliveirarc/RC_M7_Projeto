@@ -21,7 +21,7 @@ if (!isset($_SESSION['login'])) {
 
 
 		else{
-			$sql='select * from locaislazer where id=?';
+			$sql='select * from locaislazer,cidades where locaislazer.id_cidade=cidades.id AND locaislazer.id=?';
 			$stm=$con->prepare($sql);
 			if($stm!=false){
 				$stm->bind_param('i',$idLocal);
@@ -55,7 +55,14 @@ if (!isset($_SESSION['login'])) {
 
 			if (isset($local)) {
 				echo '<br>';
+				echo "Local: ";
 				echo utf8_encode($local['local']);
+				echo '<br>';
+				echo "Cidade: ";
+				echo utf8_encode($local['cidade']);
+				echo '<br>';
+				echo "Numero de ordem: ";
+				echo utf8_encode($local['numordem']);
 				echo '<br>';
 			}
 			else{

@@ -43,11 +43,12 @@
 <?php
 	if (isset($_SESSION['login'])&& $_SESSION['login']=='correto') {
 ?>
-	<a href="cidades/index.php">Cidades</a>
+	<h2><a href="cidades/index.php">Cidades</a>
 	<br>
 	<a href="locaislazer/index.php">Locais</a>
 	<br>
-	edit dos locais não funciona, melhorar o design
+	<a href="utilizador/index.php">Utilizadores</a>
+	<br></h2>
 <?php
 	}
 ?>

@@ -55,6 +55,7 @@ if (!isset($_SESSION['login'])) {
 
 			if (isset($cidade)) {
 				echo '<br>';
+				echo "Nome da cidade: ";
 				echo utf8_encode($cidade['cidade']);
 				echo '<br>';
 			}

@@ -9,7 +9,8 @@
 	}
 	if ($_SESSION['login']=="correto") {
 
-		
+	
+	$con=new mysqli("localhost","root","","projetorc");
 			
 	if($_SERVER['REQUEST_METHOD']=='GET'){
 		if(isset($_GET['id_local']) && is_numeric($_GET['id_local'])){
@@ -26,7 +27,7 @@
 			if(isset($_POST['numordem']) && is_numeric($_POST['numordem'])){
 				$numordem=$_POST['numordem'];
 			}
-			$con=new mysqli("localhost","root","","projetorc");
+			
 			if($con->connect_errno!=0){
 				echo '<h1>Ocorreu um erro no acesso à base de dados.<br>'.$con->connect_error. "</h1>";
 				exit();
@@ -40,6 +41,19 @@
 				$local=$res->fetch_assoc();
 				$stm->close();
 			}
+
+			$sqlcidade="select * from cidades";
+			$stmcidade=$con->prepare($sqlcidade);
+			if($stmcidade!=false){
+				$stmcidade->execute();
+				$cidades=$stmcidade->get_result();
+				$stmcidade->close();
+			}
+			else{
+				echo ($con->error);
+				echo 'Erro Aguarde um momento. A reencaminhar página';
+				header("refresh:2;url=index.php");
+			}
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,9 +64,25 @@
 <body>
 	<h1>Editar locais</h1>
 	<form action="local_update.php?id_local=<?php echo $local['id'];?>" method="post">
-		<label>Local</label><input type="text" name="local" required value="<?php echo $local['local'];?>"><br>
-		<label>cidade</label><input type="text" name="id_cidade" required value="<?php echo $local['id_cidade'];?>"><br>
-			<label>Numero de ordem</label><input type="text" name="numordem" value="<?php echo $local['numordem'];?>"><br>
+		<label>Local</label>
+		<input type="text" name="local" required value="<?php echo $local['local'];?>">
+		<br>
+		<label>cidade</label>
+		<select name="id_cidade" >
+			<?php
+			while ($resultado=$cidades->fetch_assoc())
+				{
+
+					echo '<option value="'.$resultado['id'].'">'. $resultado['cidade'].'</option>';
+				}
+			?>
+		</select>
+
+		<br>
+		<label>Numero de ordem</label>
+		<input type="text" name="numordem" value="<?php echo $local['numordem'];?>">
+		<br>
+
 		<input type="submit" name="enviar">
 	</form>
 	<br>
